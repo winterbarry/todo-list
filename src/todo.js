@@ -1,10 +1,13 @@
 export function toDoGenerator () {
     let addTodo = document.querySelector('.add');
     let form = document.getElementById('popUpContainer');
+    let cancel = document.getElementById('cancelBtn');
 
     addTodo.addEventListener('click', () => {
-        form.classList.toggle('hidden');
-        
         form.style.display = 'flex';
+    });
+
+    cancel.addEventListener('click', () => {
+        form.style.display = 'none';
     });
 }
