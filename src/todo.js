@@ -1,4 +1,4 @@
-export function toDoGenerator () {
+export function formVisibility () {
     let addTodo = document.querySelector('.add');
     let form = document.getElementById('popUpContainer');
     let cancel = document.getElementById('cancelBtn');
