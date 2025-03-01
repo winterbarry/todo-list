@@ -4,7 +4,10 @@ import './style.css';
 
 import { user } from './account';
 
-import { toDoGenerator } from './todo'
+import { formVisibility } from './todo'
+
+import { taskCreator } from './task'
 
 user();
-toDoGenerator();
+formVisibility();
+taskCreator();
