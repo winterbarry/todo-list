@@ -32,8 +32,7 @@ export function taskCreator () {
 
         taskDiv.style.backgroundColor = "#ADD8E6"; 
 
-        // add new task container to the main content area
-        mainBar.appendChild(taskDiv);
+        mainBar.appendChild(taskDiv); // add new task container to the main content area
 
         expandButton.addEventListener('click', () => { // event listener for the "Expand" button 
             const titleText = document.getElementById('title').value;
@@ -41,7 +40,7 @@ export function taskCreator () {
             const priorityText = document.getElementById('priority').value;
             const descriptiveText = document.getElementById('description').value;
     
-            const taskDiv = document.createElement("div"); // container for the new task
+            const expandedDiv = document.createElement("div"); // container for the new task
     
             const taskTitle = document.createElement("p");
             taskTitle.textContent = titleText;
@@ -55,21 +54,25 @@ export function taskCreator () {
             const taskDescription = document.createElement("p");
             taskDescription.textContent = descriptiveText;
     
-            taskDiv.appendChild(taskTitle);
-            taskDiv.appendChild(taskDue);
-            taskDiv.appendChild(taskPriority);
-            taskDiv.appendChild(taskDescription);
+            expandedDiv.appendChild(taskTitle);
+            expandedDiv.appendChild(taskDue);
+            expandedDiv.appendChild(taskPriority);
+            expandedDiv.appendChild(taskDescription);
     
             // styles to center expanded container
-            taskDiv.style.backgroundColor = 'yellow'; 
-            taskDiv.style.position = "fixed";
-            taskDiv.style.top = "50%";
-            taskDiv.style.left = "50%";
-            taskDiv.style.transform = "translate(-50%, -50%)";
-            taskDiv.style.width = "50%";
-            taskDiv.style.height = "auto";
+            expandedDiv.style.backgroundColor = 'yellow'; 
+            expandedDiv.style.position = "fixed";
+            expandedDiv.style.top = "50%";
+            expandedDiv.style.left = "50%";
+            expandedDiv.style.transform = "translate(-50%, -50%)";
+            expandedDiv.style.width = "50%";
+            expandedDiv.style.height = "auto";
     
-            mainBar.appendChild(taskDiv);
+            mainBar.appendChild(expandedDiv);
+        });
+
+        deleteButton.addEventListener('click', () => {
+            taskDiv.remove();
         });
     });
 }
