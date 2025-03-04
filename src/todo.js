@@ -1,17 +1,17 @@
 // Form Visibility Module
 
 export function formVisibility () {
-    let addTodo = document.querySelector('.add'); // get "Add Todo" button
+    let addTodoButton = document.querySelector('.add'); 
     let form = document.getElementById('popUpContainer');
-    let cancel = document.getElementById('cancelBtn');
+    let close = document.getElementById('closeBtn');
 
     // display the form when the "Add Todo" button is clicked
-    addTodo.addEventListener('click', () => {
+    addTodoButton.addEventListener('click', () => {
         form.style.display = 'flex';
     });
 
-    // hide the form when the "Cancel" button is clicked
-    cancel.addEventListener('click', () => {
+    // hide the form when the "close" button is clicked
+    close.addEventListener('click', () => {
         form.style.display = 'none';
     });
 }
