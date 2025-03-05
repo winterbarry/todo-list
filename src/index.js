@@ -4,8 +4,8 @@ import { user } from './account';
 
 import { formVisibility } from './todo'
 
-import { taskCreator } from './task'
+import { taskGenerator } from './task'
 
 user();
 formVisibility();
-taskCreator();
+taskGenerator();
