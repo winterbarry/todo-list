@@ -35,7 +35,7 @@ export function taskGenerator () {
                 titleInput.style.border = "2px solid red";
                 valid = false;
             } else {
-                titleInput.style.border = "";
+                titleInput.style.border = ""; // reset border style
             }
 
             if (dueText === "") {
@@ -67,6 +67,12 @@ export function taskGenerator () {
 
             const newTask = new Task(titleText, dueText, priorityText, descriptiveText);
             newTask.renderTask();
+
+            // clear input fields after task has been rendered
+            titleInput.value = '';
+            dueInput.value = '';
+            priorityInput.value = '';
+            descriptiveInput.value = '';
         }
     }
 
