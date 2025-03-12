@@ -1,7 +1,7 @@
 // Form Visibility Module
 
 export function formVisibility () {
-    let addTodoButton = document.querySelector('.add'); 
+    let addTodoButton = document.querySelector('.addToDoButton'); 
     let form = document.getElementById('popUpContainer');
     let close = document.getElementById('closeBtn');
 

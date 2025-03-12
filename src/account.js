@@ -6,7 +6,7 @@ export function user () {
         addUserButton.addEventListener("click", () => { 
             let username = prompt('Please enter your name: ');
             if (username != null) { 
-                document.querySelector(".account").textContent = username;
+                document.querySelector(".accountName").textContent = username;
             }
         }); 
     }

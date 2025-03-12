@@ -9,15 +9,19 @@
     <div class="container">
         <div class="sidebar">
             <div class="header">
-                <h3 class="account">yourAccount</h3>
+                <h3 class="accountName">yourAccount</h3>
                 <button class="user">Add User</button>
             </div>            
-            <p>All Todo's</p>
-            <p>+ Add New Project</p>
+            <div class="projectSection">
+                <button class="defaultProject">All Todo's</button>
+                <button class="personalProject">Personal</button>
+                <button class="workProject">Work</button>
+                <button class="newProject">+ Add New Project</button>
+            </div>
         </div>
 
         <div class="mainbar">
-            <button class="add">+ Add Todo</button>
+            <button class="addToDoButton">+ Add Todo</button>
 
             <div id="popUpContainer" class="hidden"> <!-- container is initially hidden -->
                 <form id="myForm">
@@ -35,17 +39,22 @@
                             <input type="text" name="priority" id="priority">
                         </div>
                     </div>
-                    <div class="description">
-                        <label for="description">Description:</label>
-                        <input type="text" name="description" id="description">
+                    <div class="projectGroup">
+                        <div class="description">
+                            <label for="description">Description:</label>
+                            <input type="text" name="description" id="description">
+                        </div>
+                        <div class="projectLocation">
+                            <label for="project">Project Location:</label>
+                            <input type="text" name="project" id="project">
+                        </div>
                     </div>
                     <div class="buttonGroup">
-                        <button type="button" class="task">Add Task</button>
+                        <button type="button" class="addTaskBtn">Add Task</button>
                         <button type="button" id="closeBtn">Close</button>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </body>

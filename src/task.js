@@ -1,20 +1,23 @@
 // Add Task Module
 
-import { renderTask, expandTask } from './taskView';
+import { renderTask, expandTask, renderTaskLoop } from './taskView';
+
+let defaultArray = [];
+let personalArray = [];
+let workArray = [];
 
 export function taskGenerator () {
     class Task {
-        constructor(title, dueDate, priority, description) {
+        constructor(title, dueDate, priority, description, location) {
             this.title = title;
             this.dueDate = dueDate;
             this.priority = priority;
             this.description = description;
-
-            Task.prototype.renderTask = renderTask;
-            Task.prototype.expandTask = expandTask;
+            this.location = location;
         }
 
-        addTask() {
+        static addTask() {
+            // get input values
             const titleInput = document.getElementById('title');
             const titleText = titleInput.value.trim();
 
@@ -27,59 +30,59 @@ export function taskGenerator () {
             const descriptiveInput = document.getElementById('description');
             const descriptiveText = descriptiveInput.value.trim();
 
-            // validate inputs
+            const locationInput = document.getElementById('project');
+            const locationText = locationInput.value.trim().toLowerCase();
+
+            // validate inputs using arrays to hold each field's input, its value, and the error message
+            const fields = [
+                { input: titleInput, value: titleText, message: "Please enter a title" },
+                { input: dueInput, value: dueText, message: "Please enter a due date" },
+                { input: priorityInput, value: priorityText, message: "Please enter a priority" },
+                { input: descriptiveInput, value: descriptiveText, message: "Please enter a description" },
+                { input: locationInput, value: locationText, message: "Please enter a location" }
+            ];
+
             let valid = true;
 
-            if (titleText === "") {
-                titleInput.placeholder = "Please enter a title";
-                titleInput.style.border = "2px solid red";
-                valid = false;
-            } else {
-                titleInput.style.border = ""; // reset border style
-            }
-
-            if (dueText === "") {
-                dueInput.placeholder = "Please enter a due date";
-                dueInput.style.border = "2px solid red";
-                valid = false;
-            } else {
-                dueInput.style.border = "";
-            }
-
-            if (priorityText === "") {
-                priorityInput.placeholder = "Please enter a priority";
-                priorityInput.style.border = "2px solid red";
-                valid = false;
-            } else {
-                priorityInput.style.border = "";
-            }
-
-            if (descriptiveText === "") {
-                descriptiveInput.placeholder = "Please enter a description";
-                descriptiveInput.style.border = "2px solid red";
-                valid = false;
-            } else {
-                descriptiveInput.style.border = "";
-            }
+            fields.forEach(({ input, value, message }) => {
+                if (value === "") {
+                  input.placeholder = message;
+                  input.style.border = "2px solid red";
+                  valid = false;
+                } else {
+                  input.style.border = "";
+                }
+            });
 
             // stop execution if any input is invalid
             if (!valid) return;
 
-            const newTask = new Task(titleText, dueText, priorityText, descriptiveText);
-            newTask.renderTask();
+            const newTask = new Task(titleText, dueText, priorityText, descriptiveText, locationText)
+
+            if (locationText === "personal") {
+                personalArray.push(newTask);
+                defaultArray.push(newTask);
+
+                renderTaskLoop(defaultArray);
+              } else if (locationText === "work") {
+                workArray.push(newTask);
+                defaultArray.push(newTask);
+                
+                renderTaskLoop(defaultArray);
+              }
 
             // clear input fields after task has been rendered
-            titleInput.value = '';
-            dueInput.value = '';
-            priorityInput.value = '';
-            descriptiveInput.value = '';
+            [titleInput, dueInput, priorityInput, descriptiveInput, locationInput].forEach(input => {
+                input.value = '';
+            });            
         }
     }
 
-    const addTaskButton = document.querySelector('.task');
-    const taskInstance = new Task();
+    // prototype assignments
+    Task.prototype.renderTask = renderTask;
+    Task.prototype.renderTasks = renderTaskLoop;
+    Task.prototype.expandTask = expandTask;
 
-    addTaskButton.addEventListener('click', () => {
-        taskInstance.addTask();
-    });
+    const addTaskButton = document.querySelector('.addTaskBtn');
+    addTaskButton.addEventListener('click', Task.addTask);
 }
