@@ -33,7 +33,10 @@ function renderTask(task) {
     });
 
     // append task title, due date, expand, and delete buttons to the task container
-    taskDiv.appendChild(taskTitle, taskDue, expandButton, deleteButton);
+    taskDiv.appendChild(taskTitle);
+    taskDiv.appendChild(taskDue);
+    taskDiv.appendChild(expandButton);
+    taskDiv.appendChild(deleteButton);
 
     taskDiv.style.backgroundColor = "#ADD8E6"; 
 
@@ -62,7 +65,20 @@ function expandTask(task) {
     const expandedDescription = document.createElement("p");
     expandedDescription.textContent = task.description;
 
-    expandedDiv.appendChild(expandedTitle, expandedDue, expandedPriority, expandedDescription);
+    const closeExpanded = document.createElement("button");
+    closeExpanded.textContent = 'Close'
+    closeExpanded.style.backgroundColor = 'red'
+
+    closeExpanded.addEventListener('click', () => {
+        expandedDiv.remove();
+    });
+
+    expandedDiv.appendChild(expandedTitle);
+    expandedDiv.appendChild(expandedDue);
+    expandedDiv.appendChild(expandedPriority);
+    expandedDiv.appendChild(expandedDescription);
+    expandedDiv.appendChild(closeExpanded);
+
 
     // styles to center expanded container
     expandedDiv.style.backgroundColor = 'yellow'; 
