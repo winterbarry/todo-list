@@ -2,9 +2,9 @@
 
 import { renderTask, expandTask, renderTaskLoop } from './taskView';
 
-let defaultArray = [];
-let personalArray = [];
-let workArray = [];
+export let defaultArray = [];
+export let personalArray = [];
+export let workArray = [];
 
 export function taskGenerator () {
     class Task {
@@ -59,6 +59,7 @@ export function taskGenerator () {
 
             const newTask = new Task(titleText, dueText, priorityText, descriptiveText, locationText)
 
+            // pusk a task to an array depending on location
             if (locationText === "personal") {
                 personalArray.push(newTask);
                 defaultArray.push(newTask);

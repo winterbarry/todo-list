@@ -1,5 +1,15 @@
 // Task Visibility Module
 
+const taskContainer = document.querySelector('.taskContainer');
+
+function renderTaskLoop(tasksArray) {
+    taskContainer.innerHTML = '' // empty container to prevent duplicate tasks from displaying
+
+    tasksArray.forEach(task => {
+        renderTask(task);
+    });
+}
+
 function renderTask(task) {
     const mainBar = document.querySelector('.mainbar');
     const taskDiv = document.createElement("div"); // container for the new task
@@ -33,24 +43,18 @@ function renderTask(task) {
     });
 
     // append task title, due date, expand, and delete buttons to the task container
-    taskDiv.appendChild(taskTitle);
-    taskDiv.appendChild(taskDue);
-    taskDiv.appendChild(expandButton);
-    taskDiv.appendChild(deleteButton);
+    const elements = [taskTitle, taskDue, taskPriority, taskDescription, expandButton, deleteButton];
+    elements.forEach(element => taskDiv.appendChild(element));
 
     taskDiv.style.backgroundColor = "#ADD8E6"; 
 
-    mainBar.appendChild(taskDiv); // add new task container to the main content area
-}
-
-function renderTaskLoop(tasksArray) {
-    tasksArray.forEach(task => {
-        renderTask(task);
-    });
+    taskContainer.appendChild(taskDiv);
+    mainBar.appendChild(taskContainer); // add new task container to the main content area
 }
 
 function expandTask(task) {
     const mainBar = document.querySelector('.mainbar');
+    const taskContainer = document.querySelector('.taskContainer');
     const expandedDiv = document.createElement("div"); // container for expanded task
 
     const expandedTitle = document.createElement("p");
@@ -73,12 +77,8 @@ function expandTask(task) {
         expandedDiv.remove();
     });
 
-    expandedDiv.appendChild(expandedTitle);
-    expandedDiv.appendChild(expandedDue);
-    expandedDiv.appendChild(expandedPriority);
-    expandedDiv.appendChild(expandedDescription);
-    expandedDiv.appendChild(closeExpanded);
-
+    const expandedElements = [expandedTitle, expandedDue, expandedPriority, expandedDescription, closeExpanded];
+    expandedElements.forEach(element => expandedDiv.appendChild(element));
 
     // styles to center expanded container
     expandedDiv.style.backgroundColor = 'yellow'; 
@@ -88,8 +88,9 @@ function expandTask(task) {
     expandedDiv.style.transform = "translate(-50%, -50%)";
     expandedDiv.style.width = "50%";
     expandedDiv.style.height = "auto";
-
-    mainBar.appendChild(expandedDiv);
+    
+    taskContainer.appendChild(expandedDiv);
+    mainBar.appendChild(taskContainer);
 }
 
 export { renderTask, expandTask, renderTaskLoop };
