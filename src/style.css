@@ -39,6 +39,7 @@ body, html {
 .newProject {
     all: unset; 
     cursor: pointer; 
+    margin-bottom: 20px;
 }
 
 .personalProject {
@@ -98,4 +99,11 @@ body, html {
 
 .newProject {
     display: block;
+}
+
+.projectButton {
+    all: unset; 
+    cursor: pointer;
+    display: block;
+    margin-top: 15px;
 }

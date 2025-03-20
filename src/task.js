@@ -1,6 +1,7 @@
 // Add Task Module
 
 import { renderTask, expandTask, renderTaskLoop } from './taskView';
+import { projectArray } from './project';
 
 export let defaultArray = [];
 export let personalArray = [];
@@ -70,6 +71,20 @@ export function taskGenerator () {
                 defaultArray.push(newTask);
                 
                 renderTaskLoop(defaultArray);
+              } else {
+                // search for a matching project by name in projectArray
+                const matchingProject = projectArray.find(
+                    project => project.name.toLowerCase() === locationText
+                );
+                if (matchingProject) {
+                    matchingProject.tasks.push(newTask);
+                    defaultArray.push(newTask);
+
+                    renderTaskLoop(defaultArray);
+                } else {
+                    alert("No project found with that name. Please create a new project first.");
+                    return;
+                }
               }
 
             // clear input fields after task has been rendered
