@@ -58,6 +58,16 @@ export function taskGenerator() {
 
             if (!valid) return;
 
+            // separate priority validation
+            const validPriority = priorityText.toLowerCase() === "high" || priorityText.toLowerCase() === "low";
+
+            if (!validPriority) {
+                priorityInput.value = "";
+                priorityInput.placeholder = "Please enter either 'High' or 'Low'";
+                priorityInput.style.border = "2px solid red";
+                return;
+            }
+
             // separate date validation using date-fns
             const parsedDate = parse(dueText, 'dd/MM/yy', new Date());
 
