@@ -27,13 +27,22 @@ function initializeProjects() {
         renderTaskLoop(workArray);
     });
 
-    // new project creation
     const sideBar = document.querySelector('.sidebar');
     const newProjectBtn = document.querySelector('.newProject');
 
     newProjectBtn.addEventListener('click', () => {
         const projectInput = prompt("Please enter the name of your project:");
         if (!projectInput) return; 
+
+        const projectInputLowerCase = projectInput.toLowerCase();
+
+        const identicalProject = projectArray.find(
+            match => match.name.toLowerCase() === projectInputLowerCase
+        );
+        if (identicalProject) {
+            alert("That project already exists");
+            return;
+        }
 
         const newProjectObj = {
             name: projectInput,
