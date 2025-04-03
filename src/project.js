@@ -1,67 +1,77 @@
 // Project Switcher Module
 
 import { renderTaskLoop } from './taskView';
-import { defaultArray, personalArray, workArray } from './task';
 
-let projectArray = [];
+export let projectArray = [
+  { name: "default", tasks: [] },
+  { name: "personal", tasks: [] },
+  { name: "work", tasks: [] }
+];
 
-function initializeProjects() {
-    const taskContainer = document.querySelector('.taskContainer');
+export function initializeProjects() {
+  const taskContainer = document.querySelector('.taskContainer');
 
-    const allButton = document.querySelector('.defaultProject');
-    const personalButton = document.querySelector('.personalProject');
-    const workButton = document.querySelector('.workProject');
+  const allButton = document.querySelector('.defaultProject');
+  const personalButton = document.querySelector('.personalProject');
+  const workButton = document.querySelector('.workProject');
 
-    allButton.addEventListener('click', () => {
-        taskContainer.innerHTML = '';
-        renderTaskLoop(defaultArray);
+  // render default, personal and work tasks
+  allButton.addEventListener('click', () => {
+    taskContainer.innerHTML = '';
+    const defaultProject = projectArray.find(p => p.name === "default");
+    renderTaskLoop(defaultProject.tasks);
+  });
+
+  personalButton.addEventListener('click', () => {
+    taskContainer.innerHTML = '';
+    const personalProject = projectArray.find(p => p.name === "personal");
+    renderTaskLoop(personalProject.tasks);
+  });
+
+  workButton.addEventListener('click', () => {
+    taskContainer.innerHTML = '';
+    const workProject = projectArray.find(p => p.name === "work");
+    renderTaskLoop(workProject.tasks);
+  });
+
+  const sideBar = document.querySelector('.sidebar');
+  const newProjectBtn = document.querySelector('.newProject');
+
+  newProjectBtn.addEventListener('click', () => {
+    const projectInput = prompt("Please enter the name of your project:");
+    if (!projectInput) return;
+
+    // check for duplicates 
+    const projectInputLowerCase = projectInput.toLowerCase();
+
+    const identicalProject = projectArray.find(
+      project => project.name.toLowerCase() === projectInputLowerCase
+    );
+
+    if (identicalProject) {
+      alert("That project already exists");
+      return;
+    }
+
+    // create new project object with an empty tasks array
+    const newProjectObj = {
+      name: projectInput,
+      tasks: []
+    };
+
+    projectArray.push(newProjectObj);
+
+    // create a new button for the added project
+    const addedBtn = document.createElement("button");
+    addedBtn.textContent = projectInput;
+    addedBtn.className = 'projectButton';
+
+    // render project tasks 
+    addedBtn.addEventListener('click', () => {
+      taskContainer.innerHTML = '';
+      renderTaskLoop(newProjectObj.tasks);
     });
 
-    personalButton.addEventListener('click', () => {
-        taskContainer.innerHTML = '';
-        renderTaskLoop(personalArray);
-    });
-
-    workButton.addEventListener('click', () => {
-        taskContainer.innerHTML = '';
-        renderTaskLoop(workArray);
-    });
-
-    const sideBar = document.querySelector('.sidebar');
-    const newProjectBtn = document.querySelector('.newProject');
-
-    newProjectBtn.addEventListener('click', () => {
-        const projectInput = prompt("Please enter the name of your project:");
-        if (!projectInput) return; 
-
-        const projectInputLowerCase = projectInput.toLowerCase();
-
-        const identicalProject = projectArray.find(
-            match => match.name.toLowerCase() === projectInputLowerCase
-        );
-        if (identicalProject) {
-            alert("That project already exists");
-            return;
-        }
-
-        const newProjectObj = {
-            name: projectInput,
-            tasks: []
-        };
-
-        projectArray.push(newProjectObj);
-
-        const addedBtn = document.createElement("button");
-        addedBtn.textContent = projectInput;
-        addedBtn.className = 'projectButton';
-
-        addedBtn.addEventListener('click', () => {
-            taskContainer.innerHTML = '';
-            renderTaskLoop(newProjectObj.tasks);
-        });
-
-        sideBar.appendChild(addedBtn);
-    });
+    sideBar.appendChild(addedBtn);
+  });
 }
-
-export { initializeProjects, projectArray };
