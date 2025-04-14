@@ -1,6 +1,6 @@
 // Add User Module
 
-import { storeData } from './local';
+import { storeName } from './local';
 
 let username = "";
 
@@ -32,7 +32,7 @@ function user() {
 
       if (username) {
           accountName.textContent = username;
-          storeData(username); // pass the arguement and store the updated username immediately
+          storeName(username); // pass the arguement and store the updated username immediately
           usernameField.value = ""; 
       } else {
           usernameField.placeholder = "Please enter a valid name";

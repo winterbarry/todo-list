@@ -11,9 +11,18 @@
             <div class="header">
                 <h3 class="accountName">yourAccount</h3>
                 <button class="user">Add User</button>
-            </div>            
-            <div class="projectSection">
+
+                <form id="usernameForm" class="hidden">
+                    <input type="text" id="userInputField" placeholder="Please enter your name">
+                    <button type="submit" id="submitBtn">Set Name</button>
+                    <button type="button" id="closeAccountBtn">Cancel</button>
+                </form>
+                
+            </div> 
+            <div class="addBtnContainer">
                 <button class="newProject">+ Add New Project</button>
+            </div>           
+            <div class="projectSection">
                 <button class="defaultProject">All Todo's</button>
                 <button class="personalProject">Personal</button>
                 <button class="workProject">Work</button>
@@ -51,7 +60,7 @@
                     </div>
                     <div class="buttonGroup">
                         <button type="button" class="addTaskBtn">Add Task</button>
-                        <button type="button" id="closeBtn">Close</button>
+                        <button type="button" id="closeTodoBtn">Close</button>
                     </div>
                 </form>
             </div>

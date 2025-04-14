@@ -1,9 +1,10 @@
 // Task Visibility Module
 
 const taskContainer = document.querySelector('.taskContainer');
+const projectContainer = document.querySelector('.projectSection');
 
 function renderTaskLoop(tasksArray) {
-    taskContainer.innerHTML = '' // empty container to prevent duplicate tasks from displaying
+    taskContainer.innerHTML = '' // clear container to prevent duplicate tasks from displaying
 
     tasksArray.forEach(task => {
         renderTask(task);
@@ -18,13 +19,13 @@ function renderTask(task) {
     taskTitle.textContent = task.title; // get object title
 
     const taskDue = document.createElement("p");
-    taskDue.textContent = task.dueDate; // get object date
+    taskDue.textContent = task.dueDate; // get date
 
     const taskPriority = document.createElement("p");
-    taskPriority.textContent = task.priority; // get object priority
+    taskPriority.textContent = task.priority; // get priority
 
     const taskDescription = document.createElement("p");
-    taskDescription.textContent = task.description; // get object description
+    taskDescription.textContent = task.description; // get description
 
     const expandButton = document.createElement("button");
     expandButton.textContent = 'Expand'
@@ -93,4 +94,22 @@ function expandTask(task) {
     mainBar.appendChild(taskContainer);
 }
 
-export { renderTask, expandTask, renderTaskLoop };
+function rerenderProjects(projects) {
+    projectContainer.textContent = '';
+
+    projects.forEach(project => {
+        const projectBtn = document.createElement('button');
+        projectBtn.textContent = project.name;
+        projectBtn.className = 'projectButton';
+        
+        projectBtn.addEventListener('click', () => {
+            const taskContainer = document.querySelector('.taskContainer');
+            taskContainer.innerHTML = '';
+            renderTaskLoop(project.tasks);
+            });
+        
+        projectContainer.appendChild(projectBtn);
+    });
+}
+
+export { renderTask, expandTask, renderTaskLoop, rerenderProjects };

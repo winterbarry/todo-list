@@ -1,6 +1,7 @@
 // Project Switcher Module
 
 import { renderTaskLoop } from './taskView';
+import { storeProject } from './local';
 
 export let projectArray = [
   { name: "default", tasks: [] },
@@ -60,6 +61,7 @@ export function initializeProjects() {
     };
 
     projectArray.push(newProjectObj);
+    storeProject(projectArray);
 
     // create a new button for the added project
     const addedBtn = document.createElement("button");

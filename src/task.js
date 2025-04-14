@@ -113,4 +113,6 @@ export function taskGenerator() {
 
   const addTaskButton = document.querySelector('.addTaskBtn');
   addTaskButton.addEventListener('click', Task.addTask);
+
+  return Task;
 }

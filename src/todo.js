@@ -3,7 +3,7 @@
 export function formVisibility () {
     let addTodoButton = document.querySelector('.addToDoButton'); 
     let form = document.getElementById('popUpContainer');
-    let close = document.getElementById('closeBtn');
+    let close = document.getElementById('closeTodoBtn');
 
     // display the form when the "Add Todo" button is clicked
     addTodoButton.addEventListener('click', () => {

@@ -97,6 +97,15 @@ body, html {
     height: auto; 
 }
 
+#usernameForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: auto; 
+}
+
 .newProject {
     display: block;
 }
