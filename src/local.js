@@ -4,7 +4,6 @@ import { rerenderProjects } from './taskView';
 import { projectArray } from './project';
 import { taskGenerator } from './task';
 
-// Correctly assign Task without destructuring:
 const Task = taskGenerator();
 
 function storeName(username) {

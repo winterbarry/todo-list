@@ -1,14 +1,14 @@
 import './style.css';
 
 import { user } from './account';
-import { formVisibility } from './todo'
 import { taskGenerator } from './task'
 import { initializeProjects } from './project'
-import { storeName, storeProject, loadData } from './local'
+import { loadData } from './local'
+import { formVisibility } from './taskView'
 
 document.addEventListener('DOMContentLoaded', loadData);
 
-user();
 formVisibility();
+user();
 taskGenerator();
 initializeProjects();

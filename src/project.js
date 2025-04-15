@@ -1,6 +1,6 @@
 // Project Switcher Module
 
-import { renderTaskLoop } from './taskView';
+import { renderTaskLoop, rerenderProjects } from './taskView';
 import { storeProject } from './local';
 
 export let projectArray = [
@@ -10,32 +10,9 @@ export let projectArray = [
 ];
 
 export function initializeProjects() {
-  const taskContainer = document.querySelector('.taskContainer');
+  rerenderProjects(projectArray);
 
-  const allButton = document.querySelector('.defaultProject');
-  const personalButton = document.querySelector('.personalProject');
-  const workButton = document.querySelector('.workProject');
-
-  // render default, personal and work tasks
-  allButton.addEventListener('click', () => {
-    taskContainer.innerHTML = '';
-    const defaultProject = projectArray.find(p => p.name === "default");
-    renderTaskLoop(defaultProject.tasks);
-  });
-
-  personalButton.addEventListener('click', () => {
-    taskContainer.innerHTML = '';
-    const personalProject = projectArray.find(p => p.name === "personal");
-    renderTaskLoop(personalProject.tasks);
-  });
-
-  workButton.addEventListener('click', () => {
-    taskContainer.innerHTML = '';
-    const workProject = projectArray.find(p => p.name === "work");
-    renderTaskLoop(workProject.tasks);
-  });
-
-  const sideBar = document.querySelector('.sidebar');
+  // new project creation
   const newProjectBtn = document.querySelector('.newProject');
 
   newProjectBtn.addEventListener('click', () => {
@@ -63,17 +40,7 @@ export function initializeProjects() {
     projectArray.push(newProjectObj);
     storeProject(projectArray);
 
-    // create a new button for the added project
-    const addedBtn = document.createElement("button");
-    addedBtn.textContent = projectInput;
-    addedBtn.className = 'projectButton';
-
-    // render project tasks 
-    addedBtn.addEventListener('click', () => {
-      taskContainer.innerHTML = '';
-      renderTaskLoop(newProjectObj.tasks);
-    });
-
-    sideBar.appendChild(addedBtn);
+    // include the new project with its delete button
+    rerenderProjects(projectArray);
   });
 }

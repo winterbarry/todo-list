@@ -1,5 +1,8 @@
 // Task Visibility Module
 
+import { projectArray } from './project';
+import { storeProject } from './local';
+
 const taskContainer = document.querySelector('.taskContainer');
 const projectContainer = document.querySelector('.projectSection');
 
@@ -95,21 +98,57 @@ function expandTask(task) {
 }
 
 function rerenderProjects(projects) {
-    projectContainer.textContent = '';
+    projectContainer.textContent = ''; 
 
     projects.forEach(project => {
+        // create a container div for each project 
+        const projectItem = document.createElement('div');
+        projectItem.className = "projectItem";
+
+        // create the project button
         const projectBtn = document.createElement('button');
         projectBtn.textContent = project.name;
         projectBtn.className = 'projectButton';
-        
         projectBtn.addEventListener('click', () => {
-            const taskContainer = document.querySelector('.taskContainer');
             taskContainer.innerHTML = '';
             renderTaskLoop(project.tasks);
-            });
-        
-        projectContainer.appendChild(projectBtn);
+        });
+
+        // create the delete button for this project
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.className = 'deleteProjectBtn';
+        deleteBtn.addEventListener('click', () => {
+            // remove the project from projectArray
+            const index = projectArray.findIndex(p => p.name === project.name);
+            if (index !== -1) {
+                projectArray.splice(index, 1);
+                storeProject(projectArray);  
+                rerenderProjects(projectArray); 
+                taskContainer.innerHTML = ''; 
+            }
+        });
+
+        projectItem.appendChild(projectBtn);
+        projectItem.appendChild(deleteBtn);
+        projectContainer.appendChild(projectItem);
     });
 }
 
-export { renderTask, expandTask, renderTaskLoop, rerenderProjects };
+function formVisibility () {
+    let addTodoButton = document.querySelector('.addToDoButton'); 
+    let form = document.getElementById('popUpContainer');
+    let close = document.getElementById('closeTodoBtn');
+
+    // display the form when the "Add Todo" button is clicked
+    addTodoButton.addEventListener('click', () => {
+        form.style.display = 'flex';
+    });
+
+    // hide the form when the "close" button is clicked
+    close.addEventListener('click', () => {
+        form.style.display = 'none';
+    });
+}
+
+export { renderTask, expandTask, renderTaskLoop, rerenderProjects, formVisibility };
