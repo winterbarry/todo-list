@@ -2,6 +2,7 @@
 
 import { projectArray } from './project';
 import { storeProject } from './local';
+import { deleteTask } from './task';
 
 const taskContainer = document.querySelector('.taskContainer');
 const projectContainer = document.querySelector('.projectSection');
@@ -44,6 +45,7 @@ function renderTask(task) {
 
     deleteButton.addEventListener('click', () => {
         taskDiv.remove();
+        deleteTask(task);
     });
 
     // append task title, due date, expand, and delete buttons to the task container

@@ -3,6 +3,7 @@
 import { parse, isValid } from 'date-fns';
 import { renderTask, expandTask, renderTaskLoop } from './taskView';
 import { projectArray } from './project';
+import { storeProject } from './local';
 
 export function taskGenerator() {
   class Task {
@@ -76,29 +77,20 @@ export function taskGenerator() {
       // create task if validation successful
       const newTask = new Task(titleText, dueText, priorityText, descriptiveText, locationText);
 
-      // always add to the default project
-      const defaultProject = projectArray.find(project => project.name === "default");
-      defaultProject.tasks.push(newTask);
-
-      // add task to work or personal 
-      if (locationText === "personal" || locationText === "work") {
-        const specificProject = projectArray.find(project => project.name.toLowerCase() === locationText);
-        if (specificProject) {
-          specificProject.tasks.push(newTask);
-        }
+      // add task if custom project exists
+      const matchingProject = projectArray.find(project => project.name.toLowerCase() === locationText);
+      if (matchingProject) {
+        matchingProject.tasks.push(newTask);
       } else {
-        // add task if custom project exists
-        const matchingProject = projectArray.find(project => project.name.toLowerCase() === locationText);
-        if (matchingProject) {
-          matchingProject.tasks.push(newTask);
-        } else {
-          alert("No project found with that name. Please create a new project first.");
-          return;
-        }
+        alert("No project found with that name. Please create a new project first.");
+        return;
       }
 
+      // pass and update projectArray
+      storeProject(projectArray);
+
       // render default project
-      renderTaskLoop(defaultProject.tasks);
+      renderTaskLoop(matchingProject.tasks);
 
       // clear inputs
       [titleInput, dueInput, priorityInput, descriptiveInput, locationInput].forEach(input => {
@@ -115,4 +107,24 @@ export function taskGenerator() {
   addTaskButton.addEventListener('click', Task.addTask);
 
   return Task;
+}
+
+export function deleteTask(taskToDelete) {
+  const project = projectArray.find(project => 
+    project.name.toLowerCase() === taskToDelete.location.toLowerCase()
+  );
+
+  if (!project) return;
+
+  const index = project.tasks.findIndex(task => 
+    task.title === taskToDelete.title &&
+    task.dueDate === taskToDelete.dueDate &&
+    task.description === taskToDelete.description
+  );
+
+  if (index !== -1) {
+    project.tasks.splice(index, 1); 
+    storeProject(projectArray);    
+    renderTaskLoop(project.tasks);  
+  }
 }

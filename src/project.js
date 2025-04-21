@@ -3,11 +3,7 @@
 import { renderTaskLoop, rerenderProjects } from './taskView';
 import { storeProject } from './local';
 
-export let projectArray = [
-  { name: "default", tasks: [] },
-  { name: "personal", tasks: [] },
-  { name: "work", tasks: [] }
-];
+export let projectArray = [];
 
 export function initializeProjects() {
   rerenderProjects(projectArray);
