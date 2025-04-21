@@ -17,5 +17,9 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
     "webpack-dev-server": "^5.2.0"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "validate-date": "^2.1.0"
   }
 }
