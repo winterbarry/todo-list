@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="header">
+                <h3 class="accountName">yourAccount</h3>
+                <button class="user">Add User</button>
+
+                <form id="usernameForm" class="hidden">
+                    <input type="text" id="userInputField" placeholder="Please enter your name">
+                    <button type="submit" id="submitBtn">Set Name</button>
+                    <button type="button" id="closeAccountBtn">Cancel</button>
+                </form>
+                
+            </div> 
+            <div class="addBtnContainer">
+                <button class="newProject">+ Add New Project</button>
+            </div>           
+            <div class="projectSection"></div>
+        </div>
+
+        <div class="mainbar">
+            <button class="addToDoButton">+ Add Todo</button>
+
+            <div id="popUpContainer" class="hidden"> <!-- container is initially hidden -->
+                <form id="myForm">
+                    <div class="inputGroup">
+                        <div class="input">
+                            <label for="title">Title:</label>
+                            <input type="text" name="title" id="title">
+                        </div>
+                        <div class="input">
+                            <label for="dueDate">Due Date:</label>
+                            <input type="text" placeholder="DD / MM / YY" name="dueDate" id="dueDate">
+                        </div>
+                        <div class="input">
+                            <label for="priority">Priority:</label>
+                            <input type="text"  placeholder="High / Low"  name="priority" id="priority">
+                        </div>
+                    </div>
+                    <div class="projectGroup">
+                        <div class="description">
+                            <label for="description">Description:</label>
+                            <input type="text" name="description" id="description">
+                        </div>
+                        <div class="projectLocation">
+                            <label for="project">Project Location:</label>
+                            <input type="text" name="project" id="project">
+                        </div>
+                    </div>
+                    <div class="buttonGroup">
+                        <button type="button" class="addTaskBtn">Add Task</button>
+                        <button type="button" id="closeTodoBtn">Close</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="taskContainer"></div>
+        </div>
+    </div>
+</body>
+</html>
